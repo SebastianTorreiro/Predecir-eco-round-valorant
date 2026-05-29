@@ -1,6 +1,6 @@
 from fastapi import APIRouter, HTTPException
-from .schemas import PredictionInput, PredictionOutput
-from .services import prediction_service
+from schemas import EcoRoundInput, PredictionOutput
+from services import prediction_service
 
 router = APIRouter(
     prefix="/predict",
@@ -8,7 +8,7 @@ router = APIRouter(
 )
 
 @router.post("/", response_model=PredictionOutput)
-def predict_eco_round(data: PredictionInput):
+def predict_eco_round(data: EcoRoundInput):
     """
     Receives prediction inputs (team_credits and first_blood_time),
     validates them, passes them to the linear regression model service,

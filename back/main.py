@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from .router import router as predict_router
+from router import router as predict_router
 
 app = FastAPI(
     title="Valorant Eco Round Prediction API",
