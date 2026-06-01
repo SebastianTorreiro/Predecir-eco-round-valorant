@@ -1,0 +1,478 @@
+/* Valorant-themed styles for the Eco Round Predictor */
+
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700;900&display=swap');
+
+:root {
+  --val-red: #ff4655;
+  --val-dark: #0f1923;
+  --val-bg: #090e12;
+  --val-white: #ece8e1;
+  --val-grey: #768079;
+  --val-border: rgba(236, 232, 225, 0.15);
+  --val-border-focus: #ff4655;
+  --val-green: #38bdf8; /* Cypher / Radiant Cyan/Blue */
+  --val-win: #00f59b;
+  --val-lose: #ff4655;
+  --font-val: 'Montserrat', system-ui, -apple-system, sans-serif;
+}
+
+.eco-predictor-container {
+  font-family: var(--font-val);
+  color: var(--val-white);
+  max-width: 900px;
+  margin: 40px auto;
+  padding: 0 20px;
+  box-sizing: border-box;
+}
+
+.eco-header {
+  text-align: center;
+  margin-bottom: 40px;
+  position: relative;
+}
+
+.eco-header h1 {
+  font-size: 3rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: var(--val-white);
+  margin: 0 0 10px 0;
+  text-shadow: 0 0 15px rgba(255, 70, 85, 0.4);
+}
+
+.eco-header h1 span {
+  color: var(--val-red);
+}
+
+.eco-subtitle {
+  color: var(--val-grey);
+  font-size: 1.1rem;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.eco-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 30px;
+}
+
+@media (min-width: 768px) {
+  .eco-grid {
+    grid-template-columns: 5fr 4fr;
+  }
+}
+
+/* Form Styles */
+.eco-card {
+  background: var(--val-dark);
+  border: 1px solid var(--val-border);
+  padding: 30px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Corner cuts decoration - Valorant style */
+.eco-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 10px;
+  height: 10px;
+  background: var(--val-red);
+  clip-path: polygon(0 0, 100% 0, 0 100%);
+}
+
+.eco-card::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 10px;
+  height: 10px;
+  background: var(--val-grey);
+  clip-path: polygon(100% 100%, 0 100%, 100% 0);
+}
+
+.eco-card.glow-red {
+  border-color: rgba(255, 70, 85, 0.4);
+  box-shadow: 0 10px 35px rgba(255, 70, 85, 0.15);
+}
+
+.eco-card.glow-green {
+  border-color: rgba(0, 245, 155, 0.4);
+  box-shadow: 0 10px 35px rgba(0, 245, 155, 0.15);
+}
+
+.eco-card-title {
+  font-size: 1.25rem;
+  text-transform: uppercase;
+  font-weight: 700;
+  margin-bottom: 25px;
+  letter-spacing: 1.5px;
+  border-left: 4px solid var(--val-red);
+  padding-left: 12px;
+  color: var(--val-white);
+}
+
+.form-group {
+  margin-bottom: 25px;
+}
+
+.form-label-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.form-label {
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: var(--val-white);
+}
+
+.form-value-badge {
+  font-size: 0.9rem;
+  font-family: var(--mono);
+  background: rgba(236, 232, 225, 0.08);
+  padding: 2px 8px;
+  border-radius: 3px;
+  color: var(--val-red);
+  font-weight: bold;
+  border: 1px solid rgba(236, 232, 225, 0.1);
+}
+
+.form-desc {
+  font-size: 0.75rem;
+  color: var(--val-grey);
+  margin-top: 5px;
+  line-height: 1.3;
+}
+
+/* Numeric & Range Input Styling */
+.input-row {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+}
+
+.number-input {
+  width: 110px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--val-border);
+  color: var(--val-white);
+  padding: 10px;
+  font-size: 1rem;
+  font-family: var(--mono);
+  text-align: center;
+  transition: all 0.3s ease;
+  box-sizing: border-box;
+}
+
+.number-input:focus {
+  outline: none;
+  border-color: var(--val-red);
+  background: rgba(255, 70, 85, 0.05);
+}
+
+.range-slider {
+  flex-grow: 1;
+  -webkit-appearance: none;
+  width: 100%;
+  height: 6px;
+  background: rgba(236, 232, 225, 0.1);
+  outline: none;
+  transition: background 0.3s;
+}
+
+.range-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 16px;
+  height: 16px;
+  background: var(--val-red);
+  cursor: pointer;
+  border-radius: 0; /* Square/diamond shape for Valorant style */
+  transform: rotate(45deg);
+  transition: transform 0.1s, background-color 0.2s;
+}
+
+.range-slider::-webkit-slider-thumb:hover {
+  background: var(--val-white);
+  transform: rotate(45deg) scale(1.1);
+}
+
+/* Presets Container */
+.presets-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.preset-btn {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--val-border);
+  color: var(--val-white);
+  padding: 6px 12px;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.preset-btn:hover {
+  background: rgba(255, 70, 85, 0.1);
+  border-color: var(--val-red);
+  color: var(--val-red);
+}
+
+/* Submit Button */
+.val-btn {
+  width: 100%;
+  padding: 15px;
+  background: var(--val-red);
+  color: var(--val-white);
+  border: none;
+  font-weight: 900;
+  font-size: 1.1rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  cursor: pointer;
+  position: relative;
+  transition: all 0.3s ease;
+  overflow: hidden;
+  clip-path: polygon(0 0, 95% 0, 100% 30%, 100% 100%, 5% 100%, 0 70%);
+}
+
+.val-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.2),
+    transparent
+  );
+  transition: all 0.5s;
+}
+
+.val-btn:hover::before {
+  left: 100%;
+}
+
+.val-btn:hover {
+  background: #ff5c69;
+  box-shadow: 0 0 20px rgba(255, 70, 85, 0.4);
+}
+
+.val-btn:disabled {
+  background: var(--val-grey);
+  color: rgba(255, 255, 255, 0.3);
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+.val-btn:disabled::before {
+  display: none;
+}
+
+/* Results Panel Styling */
+.results-wrapper {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  justify-content: center;
+}
+
+.placeholder-results {
+  text-align: center;
+  padding: 40px 20px;
+  color: var(--val-grey);
+  border: 1px dashed var(--val-border);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 250px;
+}
+
+.placeholder-icon {
+  font-size: 3rem;
+  margin-bottom: 15px;
+  color: var(--val-grey);
+  opacity: 0.5;
+}
+
+/* Loading scan animation */
+.val-loader {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 20px;
+}
+
+.scan-line {
+  width: 80px;
+  height: 4px;
+  background: var(--val-red);
+  box-shadow: 0 0 10px var(--val-red);
+  animation: scan 1.5s infinite ease-in-out;
+  margin-bottom: 20px;
+}
+
+.loading-text {
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  color: var(--val-red);
+  font-weight: 700;
+  animation: pulse 1.5s infinite;
+}
+
+@keyframes scan {
+  0% { transform: scaleX(0.2); opacity: 0.2; }
+  50% { transform: scaleX(1.2); opacity: 1; }
+  100% { transform: scaleX(0.2); opacity: 0.2; }
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 1; }
+}
+
+/* Error box */
+.error-box {
+  background: rgba(255, 70, 85, 0.1);
+  border: 1px solid var(--val-red);
+  padding: 20px;
+  color: var(--val-white);
+  margin-bottom: 20px;
+  text-align: left;
+}
+
+.error-title {
+  color: var(--val-red);
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: 0.9rem;
+  margin-bottom: 5px;
+  letter-spacing: 1px;
+}
+
+.error-msg {
+  font-size: 0.85rem;
+  font-family: var(--mono);
+}
+
+/* Prediction Output Results */
+.result-card {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  animation: fadeIn 0.4s ease-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.outcome-badge {
+  font-size: 2.2rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  margin-bottom: 15px;
+}
+
+.outcome-badge.win {
+  color: var(--val-win);
+  text-shadow: 0 0 20px rgba(0, 245, 155, 0.4);
+}
+
+.outcome-badge.lose {
+  color: var(--val-lose);
+  text-shadow: 0 0 20px rgba(255, 70, 85, 0.4);
+}
+
+.probability-container {
+  width: 100%;
+  margin: 20px 0;
+}
+
+.probability-label {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.85rem;
+  color: var(--val-grey);
+  text-transform: uppercase;
+  margin-bottom: 8px;
+  letter-spacing: 1px;
+}
+
+.probability-bar-bg {
+  width: 100%;
+  height: 12px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  position: relative;
+  overflow: hidden;
+}
+
+.probability-bar-fill {
+  height: 100%;
+  transition: width 1s cubic-bezier(0.1, 0.8, 0.3, 1);
+  box-shadow: 0 0 10px currentColor;
+}
+
+.probability-bar-fill.win {
+  background: var(--val-win);
+  color: rgba(0, 245, 155, 0.4);
+}
+
+.probability-bar-fill.lose {
+  background: var(--val-lose);
+  color: rgba(255, 70, 85, 0.4);
+}
+
+.result-explanation {
+  font-size: 0.9rem;
+  color: var(--val-grey);
+  line-height: 1.5;
+  margin-top: 15px;
+  border-top: 1px solid rgba(236, 232, 225, 0.1);
+  padding-top: 15px;
+  width: 100%;
+}
+
+.result-explanation strong {
+  color: var(--val-white);
+}
+
+.radar-graph-placeholder {
+  margin-top: 15px;
+  border: 1px solid rgba(236, 232, 225, 0.05);
+  background: rgba(255, 255, 255, 0.01);
+  padding: 10px;
+  width: 100%;
+  box-sizing: border-box;
+  font-size: 0.7rem;
+  font-family: var(--mono);
+  color: var(--val-grey);
+  text-transform: uppercase;
+}
