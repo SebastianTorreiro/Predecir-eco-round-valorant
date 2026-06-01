@@ -21,8 +21,11 @@ class EcoRoundInput(BaseModel):
         le=100
     )
 
-class PredictionOutput(BaseModel):
-    prediction: StrictFloat = Field(
-        description="Predicted value of the linear regression model."
+class EcoRoundOutput(BaseModel):
+    prediction: int = Field(
+        description="Predicted value of the logistic regression model."
     )
-
+    probability: float = Field(
+        description="Probability of winning the round."
+    )
+        

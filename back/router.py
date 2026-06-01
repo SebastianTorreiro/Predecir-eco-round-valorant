@@ -1,5 +1,5 @@
 from fastapi import APIRouter, HTTPException
-from schemas import EcoRoundInput, PredictionOutput
+from schemas import EcoRoundInput, EcoRoundOutput
 from services import prediction_service
 
 router = APIRouter(
@@ -7,19 +7,12 @@ router = APIRouter(
     tags=["Prediction"]
 )
 
-@router.post("/", response_model=PredictionOutput)
+@router.post("/", response_model=EcoRoundOutput)
 def predict_eco_round(data: EcoRoundInput):
-    """
-    Receives prediction inputs (team_credits and first_blood_time),
-    validates them, passes them to the linear regression model service,
-    and returns the prediction result.
-    """
+
     try:
-        prediction_value = prediction_service.predict(
-            team_credits=data.team_credits,
-            first_blood_time=data.first_blood_time
-        )
-        return PredictionOutput(prediction=prediction_value)
+        prediction_value = prediction_service.predict_economy_round(data)
+        return EcoRoundOutput(prediction=prediction_value.prediction, probability=prediction_value.probability)
     except Exception as e:
         raise HTTPException(
             status_code=500,
