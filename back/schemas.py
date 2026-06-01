@@ -13,7 +13,7 @@ class EcoRoundInput(BaseModel):
     team_credits: StrictFloat = Field(
         description="Current credits of the team. Must be non-negative and at most 45,000.",
         ge=0,
-        le=45000
+        le=45000 
     )
     first_blood_time: StrictFloat = Field(
         description="Time of the first blood in seconds. Must be non-negative and at most 100.",
