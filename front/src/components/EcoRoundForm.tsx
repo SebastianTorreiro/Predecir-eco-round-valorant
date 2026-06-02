@@ -18,18 +18,15 @@ export const EcoRoundForm: React.FC<EcoRoundFormProps> = ({
   isLoading,
 }) => {
   const handleCreditsChange = (val: number) => {
-    // Clamp values between 0 and 45000
     const team_credits = Math.max(0, Math.min(45000, val));
     setTeamCredits(team_credits);
   };
 
   const handleFirstBloodChange = (val: number) => {
-    // Clamp values between 0 and 100
     const first_blood_time = Math.max(0, Math.min(100, Number(val.toFixed(1))));
     setFirstBloodTime(first_blood_time);
   };
 
-  // Preset Configurations for Valorant Team Credits
   const creditPresets = [
     { label: 'Pistol Round', value: 4000, desc: '800/player' },
     { label: 'Eco / Half Buy', value: 12500, desc: '2500/player' },
@@ -38,7 +35,6 @@ export const EcoRoundForm: React.FC<EcoRoundFormProps> = ({
     { label: 'Max Credits', value: 45000, desc: '9000/player' },
   ];
 
-  // Preset Configurations for First Blood Time
   const timePresets = [
     { label: 'Pistol Duel', value: 5.0, desc: 'Early clash (5s)' },
     { label: 'Mid Control', value: 25.0, desc: 'Default play (25s)' },
@@ -49,7 +45,6 @@ export const EcoRoundForm: React.FC<EcoRoundFormProps> = ({
     <form onSubmit={onSubmit} className="eco-card">
       <h2 className="eco-card-title">Datos del Round</h2>
 
-      {/* Team Credits Input Section */}
       <div className="form-group">
         <div className="form-label-container">
           <label htmlFor="team_credits" className="form-label">
@@ -103,7 +98,6 @@ export const EcoRoundForm: React.FC<EcoRoundFormProps> = ({
         </div>
       </div>
 
-      {/* First Blood Time Input Section */}
       <div className="form-group">
         <div className="form-label-container">
           <label htmlFor="first_blood_time" className="form-label">
