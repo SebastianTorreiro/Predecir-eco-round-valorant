@@ -1,29 +1,32 @@
 import React from 'react';
-import type { EcoRoundInput } from '../types/prediction';
 
 interface EcoRoundFormProps {
-  data: EcoRoundInput;
-  onChange: (newData: EcoRoundInput) => void;
+  firstBloodTime: number
+  teamCredits: number
+  setTeamCredits: (val: number) => void
+  setFirstBloodTime: (val: number) => void
   onSubmit: (e: React.FormEvent) => void;
   isLoading: boolean;
 }
 
 export const EcoRoundForm: React.FC<EcoRoundFormProps> = ({
-  data,
-  onChange,
+  firstBloodTime,
+  teamCredits,
+  setTeamCredits,
+  setFirstBloodTime,
   onSubmit,
   isLoading,
 }) => {
   const handleCreditsChange = (val: number) => {
     // Clamp values between 0 and 45000
     const team_credits = Math.max(0, Math.min(45000, val));
-    onChange({ ...data, team_credits });
+    setTeamCredits(team_credits);
   };
 
   const handleFirstBloodChange = (val: number) => {
     // Clamp values between 0 and 100
     const first_blood_time = Math.max(0, Math.min(100, Number(val.toFixed(1))));
-    onChange({ ...data, first_blood_time });
+    setFirstBloodTime(first_blood_time);
   };
 
   // Preset Configurations for Valorant Team Credits
@@ -53,7 +56,7 @@ export const EcoRoundForm: React.FC<EcoRoundFormProps> = ({
             Créditos del Equipo (Team Credits)
           </label>
           <span className="form-value-badge">
-            {data.team_credits.toLocaleString()} ¤
+            {teamCredits.toLocaleString()} ¤
           </span>
         </div>
         <div className="input-row">
@@ -63,7 +66,7 @@ export const EcoRoundForm: React.FC<EcoRoundFormProps> = ({
             min="0"
             max="45000"
             step="100"
-            value={data.team_credits}
+            value={teamCredits}
             onChange={(e) => handleCreditsChange(Number(e.target.value))}
             className="number-input"
             disabled={isLoading}
@@ -74,7 +77,7 @@ export const EcoRoundForm: React.FC<EcoRoundFormProps> = ({
             min="0"
             max="45000"
             step="100"
-            value={data.team_credits}
+            value={teamCredits}
             onChange={(e) => handleCreditsChange(Number(e.target.value))}
             className="range-slider"
             disabled={isLoading}
@@ -107,7 +110,7 @@ export const EcoRoundForm: React.FC<EcoRoundFormProps> = ({
             Tiempo de Primera Sangre (First Blood Time)
           </label>
           <span className="form-value-badge">
-            {data.first_blood_time.toFixed(1)} s
+            {firstBloodTime.toFixed(1)} s
           </span>
         </div>
         <div className="input-row">
@@ -117,7 +120,7 @@ export const EcoRoundForm: React.FC<EcoRoundFormProps> = ({
             min="0"
             max="100"
             step="0.1"
-            value={data.first_blood_time}
+            value={firstBloodTime}
             onChange={(e) => handleFirstBloodChange(Number(e.target.value))}
             className="number-input"
             disabled={isLoading}
@@ -128,7 +131,7 @@ export const EcoRoundForm: React.FC<EcoRoundFormProps> = ({
             min="0"
             max="100"
             step="0.5"
-            value={data.first_blood_time}
+            value={firstBloodTime}
             onChange={(e) => handleFirstBloodChange(Number(e.target.value))}
             className="range-slider"
             disabled={isLoading}
@@ -157,7 +160,7 @@ export const EcoRoundForm: React.FC<EcoRoundFormProps> = ({
       <button
         type="submit"
         className="val-btn"
-        disabled={isLoading || data.team_credits < 0 || data.first_blood_time < 0}
+        disabled={isLoading || teamCredits < 0 || firstBloodTime < 0}
       >
         {isLoading ? 'Analizando...' : 'Predecir Resultado'}
       </button>

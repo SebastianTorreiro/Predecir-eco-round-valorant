@@ -3,15 +3,13 @@ import { EcoRoundForm } from './EcoRoundForm';
 import type { EcoRoundInput, EcoRoundOutput } from '../types/prediction';
 import './EcoRound.css';
 
-// Get API URL from env variables or default to localhost:8000
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000';
 
 export const EcoRoundContainer: React.FC = () => {
-  // 1. Maintain State
-  const [formData, setFormData] = useState<EcoRoundInput>({
-    team_credits: 3000,
-    first_blood_time: 10.0,
-  });
+  
+  const [teamCredits, setTeamCredits] = useState<number>(3000);
+  const [firstBloodTime, setFirstBloodTime] = useState<number>(10.0);
+  
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
   const [result, setResult] = useState<EcoRoundOutput | null>(null);
@@ -30,7 +28,7 @@ export const EcoRoundContainer: React.FC = () => {
           'Content-Type': 'application/json',
           Accept: 'application/json',
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify({"team_credits":teamCredits, "first_blood_time":firstBloodTime}),
       });
 
       if (!response.ok) {
@@ -72,8 +70,10 @@ export const EcoRoundContainer: React.FC = () => {
       <div className="eco-grid">
         {/* Left Column: Dumb Presentational Form */}
         <EcoRoundForm
-          data={formData}
-          onChange={setFormData}
+          teamCredits={teamCredits}
+          firstBloodTime={firstBloodTime}
+          setTeamCredits={setTeamCredits}
+          setFirstBloodTime={setFirstBloodTime}
           onSubmit={handleSubmit}
           isLoading={loading}
         />
@@ -137,8 +137,8 @@ export const EcoRoundContainer: React.FC = () => {
                 <p className="result-explanation">
                   Basado en una regresión logística entrenada con partidas competitivas, el equipo tiene un{' '}
                   <strong>{percentage}%</strong> de probabilidad de ganar el round al comenzar con{' '}
-                  <strong>{formData.team_credits.toLocaleString()} ¤</strong> de créditos totales y ocurrir la primera
-                  baja a los <strong>{formData.first_blood_time.toFixed(1)} segundos</strong>.
+                  <strong>{teamCredits.toLocaleString()} ¤</strong> de créditos totales y ocurrir la primera
+                  baja a los <strong>{firstBloodTime.toFixed(1)} segundos</strong>.
                 </p>
 
                 {/* Valorant styling radar/hud decoration */}
