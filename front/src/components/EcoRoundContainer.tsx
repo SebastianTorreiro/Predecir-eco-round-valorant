@@ -42,11 +42,13 @@ export const EcoRoundContainer: React.FC = () => {
 
       const data: EcoRoundOutput = await response.json();
       setResult(data);
-    } catch (err: any) {
-      console.error('Fetch error:', err);
-      setError(
-        err.message || 'No se pudo conectar con el servidor de predicción. Asegúrate de que el backend de Python esté ejecutándose.'
-      );
+    } catch (err) {
+      if(err instanceof Error){
+        console.error('Fetch error:', err);
+        setError(err.message)
+      }else{
+        setError(String(err))
+      }
     } finally {
       setLoading(false);
     }
