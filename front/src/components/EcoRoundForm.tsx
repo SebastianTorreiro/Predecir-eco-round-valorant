@@ -1,4 +1,5 @@
 import React from 'react';
+import styles from './EcoRound.module.css';
 
 interface EcoRoundFormProps {
   firstBloodTime: number
@@ -42,19 +43,19 @@ export const EcoRoundForm: React.FC<EcoRoundFormProps> = ({
   ];
 
   return (
-    <form onSubmit={onSubmit} className="eco-card">
-      <h2 className="eco-card-title">Datos del Round</h2>
+    <form onSubmit={onSubmit} className={styles['eco-card']}>
+      <h2 className={styles['eco-card-title']}>Datos del Round</h2>
 
-      <div className="form-group">
-        <div className="form-label-container">
-          <label htmlFor="team_credits" className="form-label">
+      <div className={styles['form-group']}>
+        <div className={styles['form-label-container']}>
+          <label htmlFor="team_credits" className={styles['form-label']}>
             Créditos del Equipo (Team Credits)
           </label>
-          <span className="form-value-badge">
+          <span className={styles['form-value-badge']}>
             {teamCredits.toLocaleString()} ¤
           </span>
         </div>
-        <div className="input-row">
+        <div className={styles['input-row']}>
           <input
             id="team_credits"
             type="number"
@@ -63,7 +64,7 @@ export const EcoRoundForm: React.FC<EcoRoundFormProps> = ({
             step="100"
             value={teamCredits}
             onChange={(e) => handleCreditsChange(Number(e.target.value))}
-            className="number-input"
+            className={styles['number-input']}
             disabled={isLoading}
             required
           />
@@ -74,20 +75,20 @@ export const EcoRoundForm: React.FC<EcoRoundFormProps> = ({
             step="100"
             value={teamCredits}
             onChange={(e) => handleCreditsChange(Number(e.target.value))}
-            className="range-slider"
+            className={styles['range-slider']}
             disabled={isLoading}
           />
         </div>
-        <p className="form-desc">
+        <p className={styles['form-desc']}>
           Suma total de los créditos de los 5 jugadores del equipo. Rango válido: 0 a 45,000 ¤.
         </p>
         
-        <div className="presets-container">
+        <div className={styles['presets-container']}>
           {creditPresets.map((preset) => (
             <button
               key={preset.label}
               type="button"
-              className="preset-btn"
+              className={styles['preset-btn']}
               onClick={() => handleCreditsChange(preset.value)}
               disabled={isLoading}
               title={preset.desc}
@@ -98,16 +99,16 @@ export const EcoRoundForm: React.FC<EcoRoundFormProps> = ({
         </div>
       </div>
 
-      <div className="form-group">
-        <div className="form-label-container">
-          <label htmlFor="first_blood_time" className="form-label">
+      <div className={styles['form-group']}>
+        <div className={styles['form-label-container']}>
+          <label htmlFor="first_blood_time" className={styles['form-label']}>
             Tiempo de Primera Sangre (First Blood Time)
           </label>
-          <span className="form-value-badge">
+          <span className={styles['form-value-badge']}>
             {firstBloodTime.toFixed(1)} s
           </span>
         </div>
-        <div className="input-row">
+        <div className={styles['input-row']}>
           <input
             id="first_blood_time"
             type="number"
@@ -116,7 +117,7 @@ export const EcoRoundForm: React.FC<EcoRoundFormProps> = ({
             step="0.1"
             value={firstBloodTime}
             onChange={(e) => handleFirstBloodChange(Number(e.target.value))}
-            className="number-input"
+            className={styles['number-input']}
             disabled={isLoading}
             required
           />
@@ -127,20 +128,20 @@ export const EcoRoundForm: React.FC<EcoRoundFormProps> = ({
             step="0.5"
             value={firstBloodTime}
             onChange={(e) => handleFirstBloodChange(Number(e.target.value))}
-            className="range-slider"
+            className={styles['range-slider']}
             disabled={isLoading}
           />
         </div>
-        <p className="form-desc">
+        <p className={styles['form-desc']}>
           Segundo en el que ocurre la primera baja del round. Rango válido: 0 a 100 segundos.
         </p>
 
-        <div className="presets-container">
+        <div className={styles['presets-container']}>
           {timePresets.map((preset) => (
             <button
               key={preset.label}
               type="button"
-              className="preset-btn"
+              className={styles['preset-btn']}
               onClick={() => handleFirstBloodChange(preset.value)}
               disabled={isLoading}
               title={preset.desc}
@@ -153,7 +154,7 @@ export const EcoRoundForm: React.FC<EcoRoundFormProps> = ({
 
       <button
         type="submit"
-        className="val-btn"
+        className={styles['val-btn']}
         disabled={isLoading || teamCredits < 0 || firstBloodTime < 0}
       >
         {isLoading ? 'Analizando...' : 'Predecir Resultado'}

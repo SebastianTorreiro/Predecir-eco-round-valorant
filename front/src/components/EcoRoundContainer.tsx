@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import type { EcoRoundOutput } from '../types/prediction';
-import './EcoRound.css';
+import styles from './EcoRound.module.css';
 import { EcoRoundForm } from './EcoRoundForm';
 
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000';
@@ -55,15 +55,15 @@ export const EcoRoundContainer: React.FC = () => {
   const percentage = result ? (result.probability * 100).toFixed(1) : '0';
 
   return (
-    <div className="eco-predictor-container">
-      <header className="eco-header">
+    <div className={styles['eco-predictor-container']}>
+      <header className={styles['eco-header']}>
         <h1>
           Valorant Eco-Round <span>Predictor</span>
         </h1>
-        <p className="eco-subtitle">Analizador Táctico de Probabilidad de Victoria</p>
+        <p className={styles['eco-subtitle']}>Analizador Táctico de Probabilidad de Victoria</p>
       </header>
 
-      <div className="eco-grid">
+      <div className={styles['eco-grid']}>
         <EcoRoundForm
           teamCredits={teamCredits}
           firstBloodTime={firstBloodTime}
@@ -73,63 +73,63 @@ export const EcoRoundContainer: React.FC = () => {
           isLoading={loading}
         />
 
-        <div className="results-wrapper">
+        <div className={styles['results-wrapper']}>
           <div
-            className={`eco-card ${
-              result ? (isWinPrediction ? 'glow-green' : 'glow-red') : ''
+            className={`${styles['eco-card']} ${
+              result ? (isWinPrediction ? styles['glow-green'] : styles['glow-red']) : ''
             }`}
             style={{ height: '100%', display: 'flex', flexDirection: 'column' }}
           >
-            <h2 className="eco-card-title">Resultado de Simulación</h2>
+            <h2 className={styles['eco-card-title']}>Resultado de Simulación</h2>
 
             {error && (
-              <div className="error-box">
-                <div className="error-title">Fallo de Conexión</div>
-                <div className="error-msg">{error}</div>
+              <div className={styles['error-box']}>
+                <div className={styles['error-title']}>Fallo de Conexión</div>
+                <div className={styles['error-msg']}>{error}</div>
               </div>
             )}
 
             {loading && (
-              <div className="val-loader">
-                <div className="scan-line"></div>
-                <div className="loading-text">Corriendo Regresión...</div>
+              <div className={styles['val-loader']}>
+                <div className={styles['scan-line']}></div>
+                <div className={styles['loading-text']}>Corriendo Regresión...</div>
               </div>
             )}
 
             {!loading && !error && !result && (
-              <div className="placeholder-results">
-                <div className="placeholder-icon">⌬</div>
+              <div className={styles['placeholder-results']}>
+                <div className={styles['placeholder-icon']}>⌬</div>
                 <p>Ingresa los datos tácticos a la izquierda y presiona "Predecir" para calcular la probabilidad de victoria.</p>
               </div>
             )}
 
             {!loading && !error && result && (
-              <div className="result-card">
-                <div className={`outcome-badge ${isWinPrediction ? 'win' : 'lose'}`}>
+              <div className={styles['result-card']}>
+                <div className={`${styles['outcome-badge']} ${isWinPrediction ? styles.win : styles.lose}`}>
                   {isWinPrediction ? 'Victoria' : 'Derrota'}
                 </div>
 
-                <div className="probability-container">
-                  <div className="probability-label">
+                <div className={styles['probability-container']}>
+                  <div className={styles['probability-label']}>
                     <span>Probabilidad de ganar</span>
                     <span>{percentage}%</span>
                   </div>
-                  <div className="probability-bar-bg">
+                  <div className={styles['probability-bar-bg']}>
                     <div
-                      className={`probability-bar-fill ${isWinPrediction ? 'win' : 'lose'}`}
+                      className={`${styles['probability-bar-fill']} ${isWinPrediction ? styles.win : styles.lose}`}
                       style={{ width: `${percentage}%` }}
                     ></div>
                   </div>
                 </div>
 
-                <p className="result-explanation">
+                <p className={styles['result-explanation']}>
                   Basado en una regresión logística entrenada con partidas competitivas, el equipo tiene un{' '}
                   <strong>{percentage}%</strong> de probabilidad de ganar el round al comenzar con{' '}
                   <strong>{teamCredits.toLocaleString()} ¤</strong> de créditos totales y ocurrir la primera
                   baja a los <strong>{firstBloodTime.toFixed(1)} segundos</strong>.
                 </p>
 
-                <div className="radar-graph-placeholder">
+                <div className={styles['radar-graph-placeholder']}>
                   [ System Status: Active // model_type: logistic_regression ]
                 </div>
               </div>
