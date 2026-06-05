@@ -1,0 +1,38 @@
+# ==============================================================================
+# Orquestación de Docker Compose para el Proyecto Full Stack
+# ==============================================================================
+
+version: '3.8'
+
+services:
+  # --- API del Backend (FastAPI + Uvicorn) ---
+  back:
+    build:
+      context: ./back
+      dockerfile: Dockerfile
+    container_name: valorant_predict_back
+    # Exponer y mapear el puerto 8000 para que la API sea accesible desde el host
+    ports:
+      - "8000:8000"
+    restart: unless-stopped
+    # Podrías agregar variables de entorno del backend aquí si las requieres en el futuro
+
+  # --- SPA del Frontend (React + Vite + Nginx) ---
+  front:
+    build:
+      context: ./front
+      dockerfile: Dockerfile
+      args:
+        # IMPORTANTE: El código de React corre del lado del cliente (el navegador web
+        # en la máquina del usuario), no dentro de la red interna de Docker.
+        # Por tanto, debe apuntar a la dirección accesible por el navegador (localhost:8000)
+        # y no al host del contenedor interno 'back:8000'.
+        - VITE_API_URL=http://localhost:8000
+    container_name: valorant_predict_front
+    # Mapear el puerto HTTP estándar (80) del contenedor de Nginx al puerto 80 del host
+    ports:
+      - "80:80"
+    restart: unless-stopped
+    # Garantiza que el backend se levante antes que el frontend
+    depends_on:
+      - back
